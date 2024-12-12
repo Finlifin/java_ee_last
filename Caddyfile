@@ -1,0 +1,8 @@
+:8080
+
+route {
+    route /api/* {
+        reverse_proxy :3001
+    }
+    reverse_proxy :3000
+}
