@@ -1,8 +1,14 @@
-:8080
+:8081
 
 route {
-    route /api/* {
-        reverse_proxy :3001
+    route /api/v1/image {
+        reverse_proxy :8000
+    }
+    route /api/v1/image/* {
+        reverse_proxy :8000
+    }
+    route /api/v1/* {
+        reverse_proxy :8080
     }
     reverse_proxy :3000
 }
