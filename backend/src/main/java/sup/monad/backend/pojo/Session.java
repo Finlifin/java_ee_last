@@ -2,18 +2,38 @@
 
 package sup.monad.backend.pojo;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
+import java.io.Serializable;
 
-public class Session {
-    @Autowired
-    private RedisTemplate<String, Object> redisTemplate;
+import org.springframework.data.redis.core.RedisHash;
 
-    public void setSession(String key, Object value) {
-        redisTemplate.opsForValue().set(key, value);
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
+@RedisHash
+@JsonSerialize
+@JsonDeserialize
+public class Session implements Serializable {
+    public String token;
+    public User user;
+
+    public Session(String token, User user) {
+        this.token = token;
+        this.user = user;
     }
 
-    public Object getSession(String key) {
-        return redisTemplate.opsForValue().get(key);
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

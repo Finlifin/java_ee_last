@@ -1,54 +1,42 @@
 package sup.monad.backend.pojo;
 
+import java.io.Serializable;
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Entity
 @Table(name = "users")
-public class User {
+@JsonSerialize
+@JsonDeserialize 
+@Getter
+@Setter
+public class User implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
+    private String username;
     private String password;
     private String email;
     private String role;
+    private String avatar;
 
-    public User() {
-    }
+    public User() {}
 
-    public User(Long id, String password, String email, String role) {
-        this.id = id;
+    public User(String username, String password, String email, String role, String avatar) {
+        this.username = username;
         this.password = password;
         this.email = email;
         this.role = role;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
+        this.avatar = avatar;
     }
 }
