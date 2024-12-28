@@ -28,6 +28,7 @@ public class CartService implements ICartService {
         var cart = redisTemplate.opsForValue().get(CART_KEY_PREFIX + userId);
         if (cart == null) {
             cart = new Cart();
+            System.out.println(cart.toString());
             updateCart(userId, (Cart) cart);
         }
         return (Cart) cart;

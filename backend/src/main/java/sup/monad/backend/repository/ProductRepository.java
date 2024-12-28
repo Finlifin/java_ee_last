@@ -27,7 +27,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     // 根据卖家查询所有产品
     @Transactional
     @Query("SELECT p FROM Product p WHERE p.seller = :seller")
-    List<Product> allProductsOf(String seller);
+    List<Product> allProductsOf(Long seller);
 
     // 销售一个产品，减少库存
     @Transactional

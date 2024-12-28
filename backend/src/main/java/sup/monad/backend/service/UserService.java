@@ -8,58 +8,78 @@ import org.springframework.stereotype.Service;
 import sup.monad.backend.exception.CustomException;
 import sup.monad.backend.pojo.Session;
 import sup.monad.backend.pojo.User;
+import sup.monad.backend.pojo.UserInfo;
 import sup.monad.backend.repository.UserRepository;
+import sup.monad.backend.repository.UserInfoRepository;
 
 import java.util.UUID;
 
 @Service
 public class UserService implements IUserService {
 
+    private static final String SESSION_PREFIX = "session:";
+    private static final String EMAIL_PREFIX = "email:";
+
     @Autowired
     private UserRepository userRepository;
 
     @Autowired
+    private UserInfoRepository userInfoRepository;
+
+    @Autowired
     private RedisTemplate<String, Object> redisTemplate;
 
+    
     @Override
-    public Session signUp(User user) throws CustomException {
+    public Session signUp(User user, UserInfo info, String role) throws CustomException {
         if (userRepository.findByEmail(user.getEmail()) != null) {
             throw new CustomException("Email already in use", HttpStatus.BAD_REQUEST);
         }
-        userRepository.save(user);
+        var neo = userRepository.save(user);
+        info.setId(neo.getId());
+        info.setRole(role);
+        userInfoRepository.save(info);
+
         String token = UUID.randomUUID().toString();
-        Session session = new Session(token, user);
-        redisTemplate.opsForValue().set(token, session);
-        redisTemplate.opsForValue().set(user.getEmail(), token);
+        Session session = new Session(token, info);
+        redisTemplate.opsForValue().set(SESSION_PREFIX + token, session);
+        redisTemplate.opsForValue().set(EMAIL_PREFIX + user.getEmail(), token);
         return session;
     }
 
     @Override
     public Session signIn(User user) throws CustomException {
-        User existingUser = userRepository.findByEmail(user.getEmail());
+        UserInfo info = userInfoRepository.findByEmail(user.getEmail());
+        if (info == null) {
+            throw new CustomException("Invalid username or password", HttpStatus.FORBIDDEN);
+        }
+        User existingUser = userRepository.findById(info.getId()).orElse(null);
         if (existingUser == null || !existingUser.getPassword().equals(user.getPassword())) {
-            throw new CustomException("Invalid username or password", HttpStatus.UNAUTHORIZED);
+            throw new CustomException("Invalid username or password", HttpStatus.FORBIDDEN);
         }
         String token = UUID.randomUUID().toString();
-        Session session = new Session(token, existingUser);
+        Session session = new Session(token, info);
         // clear old sessions
-        var old = redisTemplate.opsForValue().get(user.getEmail());
+        var old = redisTemplate.opsForValue().get(EMAIL_PREFIX + user.getEmail());
         if (old != null) {
-            redisTemplate.delete(old.toString());
-            redisTemplate.delete(user.getEmail());
+            redisTemplate.delete(SESSION_PREFIX + old.toString());
+            redisTemplate.delete(EMAIL_PREFIX + user.getEmail());
         }
 
-        redisTemplate.opsForValue().set(token, session);
+        redisTemplate.opsForValue().set(SESSION_PREFIX + token, session);
         System.out.println(token + ": " + session.toString());
-        redisTemplate.opsForValue().set(user.getEmail(), token);
+        redisTemplate.opsForValue().set(EMAIL_PREFIX + user.getEmail(), token);
         return session;
     }
 
     @Override
     public Session auth(String bearerToken) throws CustomException {
         System.out.println(bearerToken);
-        // TODO: add 'test' and sample user token for testing
-        Object sessionObj = redisTemplate.opsForValue().get(bearerToken.substring(7));
+        if (bearerToken.substring(7).equals("test")) {
+            UserInfo user = userInfoRepository.findById((long) 1).orElse(null);
+            return new Session(bearerToken, user);
+        }
+        Object sessionObj = redisTemplate.opsForValue().get(SESSION_PREFIX + bearerToken.substring(7));
         if (!(sessionObj instanceof Session)) {
             throw new CustomException("Unauthorized", HttpStatus.UNAUTHORIZED);
         }
@@ -69,8 +89,11 @@ public class UserService implements IUserService {
     @Override
     public Session auth(String bearerToken, String role) throws CustomException {
         System.out.println(bearerToken);
-        // TODO: add 'test' and sample user token for testing
-        Object sessionObj = redisTemplate.opsForValue().get(bearerToken.substring(7));
+        if (bearerToken.substring(7).equals("test")) {
+            UserInfo user = userInfoRepository.findById((long) 1).orElse(null);
+            return new Session(bearerToken, user);
+        }
+        Object sessionObj = redisTemplate.opsForValue().get(SESSION_PREFIX + bearerToken.substring(7));
         if (!(sessionObj instanceof Session)) {
             throw new CustomException("Unauthorized", HttpStatus.UNAUTHORIZED);
         }
@@ -88,5 +111,21 @@ public class UserService implements IUserService {
         }
         user.setPassword(body.newPassword);
         userRepository.save(user);
+    }
+
+    public User saveUser(User user) {
+        return userRepository.save(user);
+    }
+
+    public UserInfo saveUserInfo(UserInfo userInfo) {
+        return userInfoRepository.save(userInfo);
+    }
+
+    public User findUserById(Long id) {
+        return userRepository.findById(id).orElse(null);
+    }
+
+    public UserInfo findUserInfoById(Long id) {
+        return userInfoRepository.findById(id).orElse(null);
     }
 }

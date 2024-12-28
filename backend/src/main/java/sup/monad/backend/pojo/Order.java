@@ -1,5 +1,6 @@
 package sup.monad.backend.pojo;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -23,7 +24,8 @@ import lombok.Setter;
 @Table(name = "orders")
 @JsonSerialize
 @JsonDeserialize
-public class Order {
+public class Order implements Serializable {
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
@@ -40,7 +42,7 @@ public class Order {
     @Column(name = "updated_at")
     @UpdateTimestamp
     private LocalDateTime updateDateTime;
-    // pending, payed, shipped, delivered, canceled, returned, refunded, overdue
+    // pending, payed, shipped, delivered, cancelled, returned, refunded, overdue
     private String state;
     private int quantity;
 

@@ -17,7 +17,7 @@ public interface IProductService {
 
     Page<Product> findAllProducts(Pageable pageable);
 
-    List<Product> findAllProductsOf(String seller);
+    List<Product> findAllProductsOf(Long seller);
 
     void sellOneProduct(Long productId);
 

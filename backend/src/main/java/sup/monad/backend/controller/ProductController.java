@@ -24,7 +24,7 @@ public class ProductController {
     }
 
     @GetMapping("/seller/{seller}")
-    public ResponseEntity<Object> getAllProductsOf(@PathVariable String seller) {
+    public ResponseEntity<Object> getAllProductsOf(@PathVariable Long seller) {
         return new ResponseEntity<>(productService.findAllProductsOf(seller), HttpStatus.OK);
     }
 
@@ -66,8 +66,8 @@ public class ProductController {
         return new ResponseEntity<>(productService.allTags(), HttpStatus.OK);
     }
 
-    // @GetMapping("/tag/{tag}")
-    // public ResponseEntity<Object> allOfTag(@PathVariable String tag) {
-    //     return new ResponseEntity<>(productService.allOfTag(tag), HttpStatus.OK);
-    // }
+    @GetMapping("/tag")
+    public ResponseEntity<Object> allOfTag(@RequestParam String tag) {
+        return new ResponseEntity<>(productService.allOfTag(tag), HttpStatus.OK);
+    }
 }

@@ -9,31 +9,18 @@ import org.springframework.data.redis.core.RedisHash;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
+import lombok.Data;
+
+@Data
 @RedisHash
 @JsonSerialize
 @JsonDeserialize
 public class Session implements Serializable {
     public String token;
-    public User user;
+    public UserInfo userInfo;
 
-    public Session(String token, User user) {
+    public Session(String token, UserInfo userInfo) {
         this.token = token;
-        this.user = user;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
+        this.userInfo = userInfo;
     }
 }

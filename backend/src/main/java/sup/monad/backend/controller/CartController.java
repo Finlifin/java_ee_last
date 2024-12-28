@@ -7,7 +7,7 @@ import sup.monad.backend.service.ICartService;
 import sup.monad.backend.service.UserService;
 
 @RestController
-@RequestMapping("/cart")
+@RequestMapping("/api/v1/cart")
 public class CartController {
 
     @Autowired
@@ -19,49 +19,49 @@ public class CartController {
     @GetMapping
     public Cart getCart(@RequestHeader(value = "Authorization") String token) {
         var session = userService.auth(token);
-        return cartService.getCartByUserId(session.getUser().getId());
+        return cartService.getCartByUserId(session.getUserInfo().getId());
     }
 
     @PostMapping("/add")
     public void addProduct(@RequestParam Long productId, @RequestHeader(value = "Authorization") String token) {
         var session = userService.auth(token);
-        cartService.addProduct(session.getUser().getId(), productId);
+        cartService.addProduct(session.getUserInfo().getId(), productId);
     }
 
     @PutMapping("/increase")
     public void increaseProduct(@RequestParam Long productId, @RequestHeader(value = "Authorization") String token) {
         var session = userService.auth(token);
-        cartService.addProduct(session.getUser().getId(), productId);
+        cartService.addProduct(session.getUserInfo().getId(), productId);
     }
 
     @PutMapping("/decrease")
     public void decreaseProduct(@RequestParam Long productId, @RequestHeader(value = "Authorization") String token) {
         var session = userService.auth(token);
-        cartService.decreaseCart(session.getUser().getId(), productId);
+        cartService.decreaseCart(session.getUserInfo().getId(), productId);
     }
 
     @PutMapping("/setQuantity")
     public void setProductQuantity(@RequestParam Long productId, @RequestParam Integer quantity,
             @RequestHeader(value = "Authorization") String token) {
         var session = userService.auth(token);
-        cartService.setProductQuantity(session.getUser().getId(), productId, quantity);
+        cartService.setProductQuantity(session.getUserInfo().getId(), productId, quantity);
     }
 
     @DeleteMapping("/remove")
     public void removeProduct(@RequestParam Long productId, @RequestHeader(value = "Authorization") String token) {
         var session = userService.auth(token);
-        cartService.removeProduct(session.getUser().getId(), productId);
+        cartService.removeProduct(session.getUserInfo().getId(), productId);
     }
 
     @DeleteMapping("/clear")
     public void clearCart(@RequestHeader(value = "Authorization") String token) {
         var session = userService.auth(token);
-        cartService.clearCart(session.getUser().getId());
+        cartService.clearCart(session.getUserInfo().getId());
     }
 
     @PostMapping("/checkout")
     public void checkout(@RequestHeader(value = "Authorization") String token) {
         var session = userService.auth(token);
-        cartService.checkout(session.getUser().getId());
+        cartService.checkout(session.getUserInfo().getId());
     }
 }

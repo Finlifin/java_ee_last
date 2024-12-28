@@ -24,7 +24,7 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public List<Product> findAllProductsOf(String seller) {
+    public List<Product> findAllProductsOf(Long seller) {
         return productRepository.allProductsOf(seller);
     }
 

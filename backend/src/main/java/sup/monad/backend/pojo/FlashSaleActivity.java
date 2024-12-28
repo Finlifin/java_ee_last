@@ -13,6 +13,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import lombok.Data;
 
@@ -39,7 +40,6 @@ public class FlashSaleActivity {
     private Integer limitPerUser;
     @Column(name = "total_quantity")
     private Integer totalQuantity;
-    @Column(name = "state", columnDefinition = "varchar(16) default 'created'")
     private String state;
     @CreationTimestamp
     @Column(name = "created_at")
@@ -47,4 +47,11 @@ public class FlashSaleActivity {
     @UpdateTimestamp
     @Column(name = "updated_at")
     private LocalDateTime updateDateTime;
+
+    @PrePersist
+    public void prePersist() {
+        if (state == null) {
+            state = "created";
+        }
+    }
 }

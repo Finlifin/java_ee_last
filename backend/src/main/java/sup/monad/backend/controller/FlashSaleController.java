@@ -49,6 +49,6 @@ public class FlashSaleController {
             @RequestParam int quantity,
             @RequestHeader("Authorization") String bearerToken) {
         var session = userService.auth(bearerToken);
-        flashSaleService.checkout(flashSaleId, session.user.getId(), quantity);
+        flashSaleService.checkout(flashSaleId, session.userInfo.getId(), quantity);
     }
 }

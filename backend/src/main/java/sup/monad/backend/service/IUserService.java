@@ -5,9 +5,10 @@ import lombok.Setter;
 import sup.monad.backend.exception.CustomException;
 import sup.monad.backend.pojo.Session;
 import sup.monad.backend.pojo.User;
+import sup.monad.backend.pojo.UserInfo;
 
 public interface IUserService {
-    Session signUp(User user) throws CustomException;
+    Session signUp(User user,UserInfo info, String role) throws CustomException;
 
     Session signIn(User user) throws CustomException;
 
