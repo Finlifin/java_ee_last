@@ -1,7 +1,10 @@
 package sup.monad.backend.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+
+import sup.monad.backend.exception.CustomException;
 import sup.monad.backend.pojo.FlashSaleActivity;
 import sup.monad.backend.pojo.Order;
 import sup.monad.backend.repository.FlashSaleRepository;
@@ -34,6 +37,11 @@ public class FlashSaleService implements IFlashSaleService {
 
     @Override
     public FlashSaleActivity createFlashSale(FlashSaleActivity flashSaleActivity) {
+        // check if stock is enough
+        var product = productService.findProductById(flashSaleActivity.getProductId());
+        if (product.getStock() < flashSaleActivity.getTotalQuantity()) {
+            throw new CustomException("Not enough stock", HttpStatus.FORBIDDEN);
+        }
         return flashSaleRepository.save(flashSaleActivity);
     }
 

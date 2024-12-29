@@ -6,26 +6,38 @@ import { Spinner } from "@/components/spinner"
 import { useCartStore } from "@/stores/cart-store"
 
 interface ChangeQuantityButtonProps {
-  id: string
-  variantId: string
+  id: number
   quantity: number
-  productId: string
+  productId: number
   children: React.ReactNode
 }
 
-export function ChangeQuantityButton({ id, variantId, quantity, productId, children }: ChangeQuantityButtonProps) {
+export function ChangeQuantityButton({ id, quantity, productId, children }: ChangeQuantityButtonProps) {
   const refresh = useCartStore((prev) => prev.refresh)
   const [isPending, startTransition] = useTransition()
 
   const handleClick = () => {
+    let session = localStorage.getItem('session');
+    if (!session) {
+      window.location.href = '/login'
+    }
+
     startTransition(async () => {
-      const { ok, message } = await updateItemQuantity(null, { itemId: id, variantId, quantity, productId })
-
-      if (!ok && message) {
-        toast.warning(message)
-      }
-
-      refresh()
+      fetch(`/api/v1/cart/setQuantity?productId=${productId}&quantity=${quantity}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${JSON.parse(session as string).token}`,
+          },
+        }
+      ).then(res => res.json())
+        .then(data => {
+          console.log(`remove product ${id}: `, data)
+          refresh()
+        }).catch(err => {
+          console.error(err)
+        })
     })
   }
 

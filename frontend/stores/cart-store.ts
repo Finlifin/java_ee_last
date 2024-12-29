@@ -1,18 +1,18 @@
-import { PlatformCart } from "lib/shopify/types"
+import { Cart } from "@/types"
 import { create } from "zustand"
 
 interface CartStore {
   isOpen: boolean
   isSheetLoaded: boolean
   lastUpdatedAt: number
-  cart: PlatformCart | null
+  cart: Cart | null
   checkoutReady: boolean
 
   openCart: () => void
   closeCart: () => void
   preloadSheet: () => void
   refresh: () => void
-  setCart: (payload: PlatformCart | null) => void
+  setCart: (payload: Cart | null) => void
   setCheckoutReady: (payload: boolean) => void
 }
 
@@ -28,5 +28,5 @@ export const useCartStore = create<CartStore>((set) => ({
   preloadSheet: () => set(() => ({ isSheetLoaded: true })),
   refresh: () => set(() => ({ lastUpdatedAt: Date.now() })),
   setCheckoutReady: (payload: boolean) => set(() => ({ checkoutReady: payload })),
-  setCart: (payload: PlatformCart | null) => set(() => ({ cart: payload })),
+  setCart: (payload: Cart | null) => set(() => ({ cart: payload })),
 }))

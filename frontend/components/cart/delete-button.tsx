@@ -6,7 +6,7 @@ import { useCartStore } from "@/stores/cart-store"
 import { cn } from "@/utils/cn"
 
 interface DeleteButtonProps {
-  id: string
+  id: number
 }
 
 export function DeleteButton({ id }: DeleteButtonProps) {
@@ -14,12 +14,27 @@ export function DeleteButton({ id }: DeleteButtonProps) {
   const [isPending, startTransition] = useTransition()
 
   const handleClick = () => {
-    startTransition(async () => {
-      const { ok } = await removeCartItem(null, id)
+    let session = localStorage.getItem('session');
+    if (!session) {
+      window.location.href = '/login'
+    }
 
-      if (ok) {
-        refresh()
-      }
+    startTransition(async () => {
+      fetch(`/api/v1/cart/remove?productId=${id}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${JSON.parse(session as string).token}`,
+          },
+        }
+      ).then(res => res.json())
+        .then(data => {
+          console.log(`remove product ${id}: `, data)
+          refresh()
+        }).catch(err => {
+          console.error(err)
+        })
     })
   }
 

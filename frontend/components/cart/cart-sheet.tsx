@@ -6,13 +6,11 @@ import { Sheet, SheetClose, SheetContent, SheetFooter, SheetHeader, SheetTitle }
 import { LoadingDots } from "@/components/loading-dots"
 
 import { cn } from "@/utils/cn"
-
-import { PlatformCart } from "@/lib/shopify/types"
-
 import { CartItem } from "./cart-item"
+import { Cart } from "@/types"
 
 interface CartSheetProps {
-  cart: PlatformCart | null
+  cart: Cart | null
   onCartClose: () => void
   onCartOpen: () => void
   isOpen: boolean
@@ -22,9 +20,9 @@ interface CartSheetProps {
 export function CartSheet({ cart, isOpen, onCartClose, isPending }: CartSheetProps) {
   const router = useRouter()
 
-  const hasAnyItems = (cart?.items?.length || 0) > 0
-  const subtotalFormatted = cart?.cost?.subtotalAmount?.amount + " " + cart?.cost?.subtotalAmount?.currencyCode
-  const totalFomatted = cart?.cost?.totalAmount?.amount + " " + cart?.cost?.totalAmount?.currencyCode
+  const hasAnyItems = (cart?.orders.length || 0) > 0
+  const subtotalFormatted = cart?.orders.map(o => o.totalAmount).reduce((x, y) => x + y, 0) + " ¥"
+  const totalFomatted = subtotalFormatted
 
   return (
     <Sheet open={isOpen} onOpenChange={() => onCartClose()}>
@@ -44,12 +42,11 @@ export function CartSheet({ cart, isOpen, onCartClose, isPending }: CartSheetPro
         {!hasAnyItems && <CartEmptyState />}
 
         <div className={cn("mb-4 flex size-full h-[calc(100%-63px-260px)] flex-col gap-4 overflow-x-hidden p-4 pt-2")}>
-          {cart?.items.map((singleItem) => (
+          {cart?.orders.map((order, index) => (
             <CartItem
-              className={cn(isPending && "pointer-events-none")}
-              {...singleItem}
-              key={singleItem.id + "_" + singleItem.merchandise.id}
-              onProductClick={() => onCartClose()}
+              key={index}
+              order={order}
+              product={cart.products[index]}
             />
           ))}
         </div>
@@ -75,7 +72,7 @@ export function CartSheet({ cart, isOpen, onCartClose, isPending }: CartSheetPro
                 className="w-full justify-center text-center hover:text-white"
                 size="lg"
                 // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
-                onClick={() => router.push(cart?.checkoutUrl!)}
+                // onClick={() => router.push(cart?.checkoutUrl!)}
               >
                 Proceed to Checkout
               </Button>

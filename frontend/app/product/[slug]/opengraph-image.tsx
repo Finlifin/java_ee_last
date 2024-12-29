@@ -2,9 +2,9 @@
 /* eslint-disable jsx-a11y/alt-text */
 
 import { ImageResponse } from "next/og"
-import { removeOptionsFromUrl } from "utils/product-options-utils"
-import { env } from "env.mjs"
-import { getProduct } from "lib/meilisearch"
+import { removeOptionsFromUrl } from "@/utils/product-options-utils"
+import { env } from "@/env.mjs"
+import { getProduct } from "@/lib/meilisearch"
 
 export const revalidate = 86400
 

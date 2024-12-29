@@ -10884,6 +10884,11 @@ url-parse@^1.5.3:
     querystringify "^2.1.1"
     requires-port "^1.0.0"
 
+urldecode@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.npmmirror.com/urldecode/-/urldecode-1.0.1.tgz#67583a51f7cd299057518d3c25c490add7839617"
+  integrity sha512-h0S6hi8/2kC6ZTbnzRyRC86BKDp9rSV2BndvtedcPSFcWdqdXc2Bru1NuF4Oq89D4HKitpX3+EJDry0uOjfTyw==
+
 urlpattern-polyfill@^10.0.0:
   version "10.0.0"
   resolved "https://registry.npmmirror.com/urlpattern-polyfill/-/urlpattern-polyfill-10.0.0.tgz#f0a03a97bfb03cdf33553e5e79a2aadd22cac8ec"
