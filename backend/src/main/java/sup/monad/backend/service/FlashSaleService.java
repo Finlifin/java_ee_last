@@ -1,11 +1,20 @@
 package sup.monad.backend.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Valid;
+import jakarta.validation.Validator;
+import sup.monad.backend.exception.CustomException;
 import sup.monad.backend.pojo.FlashSaleActivity;
 import sup.monad.backend.pojo.Order;
+import sup.monad.backend.pojo.Product;
 import sup.monad.backend.repository.FlashSaleRepository;
 import java.util.List;
+import java.util.Set;
+
 
 @Service
 public class FlashSaleService implements IFlashSaleService {
@@ -22,6 +31,9 @@ public class FlashSaleService implements IFlashSaleService {
     @Autowired
     private PaymentService paymentService;
 
+    @Autowired
+    private Validator validator;
+
     @Override
     public List<FlashSaleActivity> getAllFlashSales() {
         return flashSaleRepository.findAll();
@@ -33,22 +45,58 @@ public class FlashSaleService implements IFlashSaleService {
     }
 
     @Override
-    public FlashSaleActivity createFlashSale(FlashSaleActivity flashSaleActivity) {
+    public FlashSaleActivity createFlashSale(@Valid FlashSaleActivity flashSaleActivity) {
+        Set<ConstraintViolation<FlashSaleActivity>> violations = validator.validate(flashSaleActivity);
+        if (!violations.isEmpty()) {
+            StringBuilder errorMessages = new StringBuilder();
+            for (ConstraintViolation<FlashSaleActivity> violation : violations) {
+                errorMessages.append(violation.getMessage()).append(", ");
+            }
+            throw new CustomException(errorMessages.toString(), HttpStatus.BAD_REQUEST);
+        }
+        Product product = productService.findProductById(flashSaleActivity.getProductId());
+        if (product == null) {
+            throw new CustomException("Product not found", HttpStatus.NOT_FOUND);
+        }
+        if (flashSaleActivity.getTotalQuantity() > product.getStock()) {
+             throw new CustomException("Not enough stock", HttpStatus.BAD_REQUEST);
+        }
+        if (flashSaleActivity.getStartTime().isAfter(flashSaleActivity.getEndTime())) {
+            throw new CustomException("Start time must be before end time", HttpStatus.BAD_REQUEST);
+        }
+
         return flashSaleRepository.save(flashSaleActivity);
+        
     }
 
     @Override
-    public FlashSaleActivity updateFlashSale(Long id, FlashSaleActivity flashSaleActivity) {
-        if (flashSaleRepository.existsById(id)) {
-            flashSaleActivity.setId(id);
-            return flashSaleRepository.save(flashSaleActivity);
+    public FlashSaleActivity updateFlashSale(Long id,@Valid FlashSaleActivity flashSaleActivity) {
+        Set<ConstraintViolation<FlashSaleActivity>> violations = validator.validate(flashSaleActivity);
+        if (!violations.isEmpty()) {
+            StringBuilder errorMessages = new StringBuilder();
+            for (ConstraintViolation<FlashSaleActivity> violation : violations) {
+                errorMessages.append(violation.getMessage()).append(", ");
+            }
+            throw new CustomException(errorMessages.toString(), HttpStatus.BAD_REQUEST);
+        }
+        Product product = productService.findProductById(flashSaleActivity.getProductId());
+        if (product == null) {
+            throw new CustomException("Product not found", HttpStatus.NOT_FOUND);
+        }
+        if (flashSaleActivity.getTotalQuantity() > product.getStock()) {
+             throw new CustomException("Not enough stock", HttpStatus.BAD_REQUEST);
+        }
+        if (flashSaleActivity.getStartTime().isAfter(flashSaleActivity.getEndTime())) {
+            throw new CustomException("Start time must be before end time", HttpStatus.BAD_REQUEST);
         }
         return null;
     }
 
     @Override
     public void deleteFlashSale(Long id) {
-        flashSaleRepository.deleteById(id);
+        if (flashSaleRepository.existsById(id)) {
+            flashSaleRepository.deleteById(id);
+        }
     }
 
     @Override
