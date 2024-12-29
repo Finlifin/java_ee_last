@@ -4,7 +4,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+
+import sup.monad.backend.exception.CustomException;
 import sup.monad.backend.pojo.Cart;
 import sup.monad.backend.pojo.Order;
 
@@ -13,6 +16,9 @@ public class CartService implements ICartService {
 
     @Autowired
     private RedisTemplate<String, Object> redisTemplate;
+
+    @Autowired
+    private ProductService productService;
 
     @Autowired
     private PaymentService paymentService;
@@ -46,6 +52,9 @@ public class CartService implements ICartService {
 
     @Override
     public void decreaseCart(Long userId, Long productId) {
+        if(productService.findProductById(productId)==null){
+            throw new CustomException("Product not found", HttpStatus.NOT_FOUND);
+        }
         Cart cart = getCartByUserId(userId);
         if (cart != null) {
             cart.getOrders().stream().filter(order -> order.getProductId().equals(productId)).forEach(order -> {
@@ -61,11 +70,18 @@ public class CartService implements ICartService {
 
     @Override
     public void increaseCart(Long userId, Long productId) {
+        if(productService.findProductById(productId)==null){
+            throw new CustomException("Product not found", HttpStatus.NOT_FOUND);
+        }
         Cart cart = getCartByUserId(userId);
         if (cart != null) {
             cart.getOrders().stream().filter(order -> order.getProductId().equals(productId)).forEach(order -> {
                 order.setQuantity(order.getQuantity() + 1);
+                if(order.getQuantity() > productService.findProductById(productId).getStock()){
+                    throw new CustomException("Not enough stock", HttpStatus.BAD_REQUEST);
+                }
             });
+            
             updateCart(userId, cart);
         }
     }
@@ -81,6 +97,9 @@ public class CartService implements ICartService {
 
     @Override
     public void addProduct(Long userId, Long productId) {
+        if(productService.findProductById(productId)==null){
+            throw new CustomException("Product not found", HttpStatus.NOT_FOUND);
+        }
         Cart cart = getCartByUserId(userId);
         if (cart == null) {
             cart = new Cart();
@@ -115,6 +134,9 @@ public class CartService implements ICartService {
         if (cart != null) {
             cart.getOrders().stream().filter(order -> order.getProductId().equals(productId)).forEach(order -> {
                 order.setQuantity(quantity);
+                if(order.getQuantity() > productService.findProductById(productId).getStock()){
+                    throw new CustomException("Not enough stock", HttpStatus.BAD_REQUEST);
+                }
             });
             updateCart(userId, cart);
         }
