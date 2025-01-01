@@ -1,20 +1,20 @@
 import { unstable_cache } from "next/cache"
 import type { CategoriesDistribution, DocumentsQuery, Facet } from "meilisearch"
 
-import { env } from "env.mjs"
+import { env } from "@/env.mjs"
 
-import { getDemoCategories, getDemoProductReviews, getDemoProducts, getDemoSingleCategory, getDemoSingleProduct, isDemoMode } from "utils/demo-utils"
-import { notifyOptIn } from "utils/opt-in"
+import { getDemoCategories, getDemoProductReviews, getDemoProducts, getDemoSingleCategory, getDemoSingleProduct, isDemoMode } from "@/utils/demo-utils"
+import { notifyOptIn } from "@/utils/opt-in"
 
-import { ComparisonOperators, FilterBuilder } from "lib/meilisearch/filter-builder"
-import type { Review } from "lib/reviews/types"
-import { PlatformCollection } from "lib/shopify/types"
+import { ComparisonOperators, FilterBuilder } from "@/lib/meilisearch/filter-builder"
+import type { Review } from "@/lib/reviews/types"
+import { PlatformCollection } from "@/lib/shopify/types"
 
-import { HITS_PER_PAGE } from "constants/index"
+import { HITS_PER_PAGE } from "@/constants/index"
 
 import { searchClient as meilisearch } from "./client"
 
-import type { CommerceProduct } from "types"
+import type { CommerceProduct } from "@/types"
 
 export const getProduct = unstable_cache(
   async (handle: string) => {

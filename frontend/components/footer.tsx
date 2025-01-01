@@ -8,48 +8,48 @@ export function Footer() {
       <div className="mx-auto max-w-container-md px-6 py-12">
         <div className="grid gap-8 sm:grid-cols-2">
           <div className="space-y-4">
-            <h3 className="text-primary text-lg font-semibold">Newsletter</h3>
-            <p>Subscribe to receive updates, access to exclusive deals, and more.</p>
+            <h3 className="text-primary text-lg font-semibold">推送</h3>
+            <p>关注获取最新推送</p>
             <div className="space-y-2 sm:max-w-md">
-              <Input type="email" placeholder="Enter your email" aria-label="Email for newsletter" />
+              <Input type="email" placeholder="请输入邮箱地址..." aria-label="Email for newsletter" />
               <Button type="submit" className="w-full">
-                Subscribe
+                订阅
               </Button>
             </div>
           </div>
           <div className="flex justify-center gap-24 sm:justify-end">
             <div className="space-y-4">
-              <h3 className="text-primary text-lg font-semibold">Shop</h3>
+              <h3 className="text-primary text-lg font-semibold">购物</h3>
               <ul className="space-y-2">
                 <li>
                   <Link href="/search" className="transition-colors hover:text-orange-500" prefetch={false}>
-                    All Products
+                    所有产品
                   </Link>
                 </li>
                 <li>
                   <Link href="/category/electronics" className="transition-colors hover:text-orange-500" prefetch={false}>
-                    Electronics
+                    电子产品
                   </Link>
                 </li>
                 <li>
                   <Link href="/category/fashion" className="transition-colors hover:text-orange-500" prefetch={false}>
-                    Fashion
+                    时尚新品
                   </Link>
                 </li>
                 <li>
                   <Link href="/category/Retro" className="transition-colors hover:text-orange-500" prefetch={false}>
-                    Retro
+                    复古风格
                   </Link>
                 </li>
               </ul>
             </div>
 
             <div className="space-y-4">
-              <h3 className="text-primary text-lg font-semibold">Support</h3>
+              <h3 className="text-primary text-lg font-semibold">产品支持</h3>
               <ul className="space-y-2">
                 <li>
                   <a href="mailto:contact@blazity.com" className="transition-colors hover:text-orange-500">
-                    Contact Us
+                    联系我们
                   </a>
                 </li>
                 <li>
@@ -80,33 +80,7 @@ export function Footer() {
                 <LinkedinIcon className="size-6" />
               </a>
             </div>
-            <div className="text-sm">© {new Date().getFullYear()} Blazity Enterprise Commerce.</div>
-          </div>
-          <div className="mt-4 flex flex-col items-center justify-between space-y-4 md:flex-row md:space-y-0">
-            <Link
-              href="https://vercel.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-muted-foreground hover:text-primary mt-4 flex items-center space-x-2 transition-colors"
-              prefetch={false}
-            >
-              <svg height="20" viewBox="0 0 283 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path
-                  fill="currentColor"
-                  d="M141.04 16c-11.04 0-19 7.2-19 18s8.96 18 20 18c6.67 0 12.55-2.64 16.19-7.09l-7.65-4.42c-2.02 2.21-5.09 3.5-8.54 3.5-4.79 0-8.86-2.5-10.37-6.5h28.02c.22-1.12.35-2.28.35-3.5 0-10.79-7.96-17.99-19-17.99zm-9.46 14.5c1.25-3.99 4.67-6.5 9.45-6.5 4.79 0 8.21 2.51 9.45 6.5h-18.9zM248.72 16c-11.04 0-19 7.2-19 18s8.96 18 20 18c6.67 0 12.55-2.64 16.19-7.09l-7.65-4.42c-2.02 2.21-5.09 3.5-8.54 3.5-4.79 0-8.86-2.5-10.37-6.5h28.02c.22-1.12.35-2.28.35-3.5 0-10.79-7.96-17.99-19-17.99zm-9.45 14.5c1.25-3.99 4.67-6.5 9.45-6.5 4.79 0 8.21 2.51 9.45 6.5h-18.9zM200.24 34c0 6 3.92 10 10 10 4.12 0 7.21-1.87 8.8-4.92l7.68 4.43c-3.18 5.3-9.14 8.49-16.48 8.49-11.05 0-19-7.2-19-18s7.96-18 19-18c7.34 0 13.29 3.19 16.48 8.49l-7.68 4.43c-1.59-3.05-4.68-4.92-8.8-4.92-6.07 0-10 4-10 10zm82.48-29v46h-9V5h9zM36.95 0L73.9 64H0L36.95 0zm92.38 5l-27.71 48L73.91 5H84.3l17.32 30 17.32-30h10.39zm58.91 12v9.69c-1-.29-2.06-.49-3.2-.49-5.81 0-10 4-10 10V51h-9V17h9v9.2c0-5.08 5.91-9.2 13.2-9.2z"
-                />
-              </svg>
-              <span>Powered by Vercel</span>
-            </Link>
-            <Link
-              href="https://v0.dev"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="focus:ring-ring mb-4 inline-flex w-fit items-center whitespace-nowrap rounded-full border border-transparent bg-black px-2.5 py-0.5 text-xs font-semibold text-white transition-colors hover:text-orange-500 focus:outline-none focus:ring-2 focus:ring-offset-2"
-              prefetch={false}
-            >
-              Designed with v0
-            </Link>
+            <div className="text-sm">© {new Date().getFullYear()} Monad惠购</div>
           </div>
         </div>
       </div>

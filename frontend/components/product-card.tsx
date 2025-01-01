@@ -7,7 +7,7 @@ export const ProductCard = ({ product: { img, name, description, id, price }, se
 
   return (
     <Link className={"group flex h-full w-full flex-col overflow-hidden"} href={href}>
-      <div className="relative aspect-square overflow-hidden">
+      <div className="relative aspect-square overflow-hidden m-auto">
         <Image
           className="object-cover transition-transform group-hover:scale-105"
           src={img || "/default-product-image.svg"}
@@ -20,7 +20,7 @@ export const ProductCard = ({ product: { img, name, description, id, price }, se
         <div className="flex flex-col gap-1">
           <span>{price}¥</span>
 
-          {!!seller.name && <p className="text-sm text-gray-500">{seller.name}</p>}
+          {!!seller.username && <p className="text-sm text-gray-500">{seller.username}</p>}
           <div className="mt-1 flex flex-wrap items-center gap-1">
           </div>
         </div>

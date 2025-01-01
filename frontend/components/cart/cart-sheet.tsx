@@ -1,5 +1,3 @@
-import { useRouter } from "next/navigation"
-
 import { Button } from "@/components/ui/button-old"
 import { CloseIcon } from "@/components/icons/close-icon"
 import { Sheet, SheetClose, SheetContent, SheetFooter, SheetHeader, SheetTitle } from "@/components/ui/sheet"
@@ -7,29 +5,32 @@ import { LoadingDots } from "@/components/loading-dots"
 
 import { cn } from "@/utils/cn"
 import { CartItem } from "./cart-item"
-import { Cart } from "@/types"
+import { useEffect } from "react"
+import { useCartStore } from "@/stores/cart-store"
 
 interface CartSheetProps {
-  cart: Cart | null
   onCartClose: () => void
   onCartOpen: () => void
   isOpen: boolean
   isPending: boolean
 }
 
-export function CartSheet({ cart, isOpen, onCartClose, isPending }: CartSheetProps) {
-  const router = useRouter()
-
+export function CartSheet({ isOpen, onCartClose, isPending }: CartSheetProps) {
+  const { cart } = useCartStore();
   const hasAnyItems = (cart?.orders.length || 0) > 0
   const subtotalFormatted = cart?.orders.map(o => o.totalAmount).reduce((x, y) => x + y, 0) + " ¥"
   const totalFomatted = subtotalFormatted
 
+  useEffect(() => {
+    console.log("cart: ", cart)
+  }, [cart])
+
   return (
     <Sheet open={isOpen} onOpenChange={() => onCartClose()}>
-      <SheetContent className="size-full min-h-svh bg-white p-0">
+      <SheetContent className="size-full min-h-svh bg-white p-0" aria-describedby="cart-sheet-description" aria-description="Review your cart">
         <SheetHeader className="flex w-full flex-row items-center justify-between">
           <SheetTitle className="flex items-center p-4 pb-0 text-[20px] font-normal">
-            Review your cart
+            购物车
             {isPending ? <LoadingDots className="ml-4" /> : null}
           </SheetTitle>
 
@@ -54,16 +55,16 @@ export function CartSheet({ cart, isOpen, onCartClose, isPending }: CartSheetPro
         {hasAnyItems && (
           <SheetFooter className="border-t border-black p-4">
             <div className="w-full bg-white py-4 text-sm text-neutral-500">
-              <div className="flex items-center justify-between border-b border-neutral-200 pb-4 ">
+              {/* <div className="flex items-center justify-between border-b border-neutral-200 pb-4 ">
                 <p>Subtotal</p>
                 <p className="text-right text-base text-black ">{subtotalFormatted}</p>
-              </div>
-              <div className="flex items-center justify-between border-b border-neutral-200 py-4 ">
+              </div> */}
+              {/* <div className="flex items-center justify-between border-b border-neutral-200 py-4 ">
                 <p>Shipping</p>
                 <p className="text-right">Calculated at checkout</p>
-              </div>
+              </div> */}
               <div className="flex items-center justify-between border-neutral-200 py-4 ">
-                <p>Total</p>
+                <p>总计</p>
                 <p className="text-right text-base text-black ">{totalFomatted}</p>
               </div>
               <Button
@@ -71,10 +72,10 @@ export function CartSheet({ cart, isOpen, onCartClose, isPending }: CartSheetPro
                 isAnimated={false}
                 className="w-full justify-center text-center hover:text-white"
                 size="lg"
-                // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
-                // onClick={() => router.push(cart?.checkoutUrl!)}
+              // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
+              // onClick={() => router.push(cart?.checkoutUrl!)}
               >
-                Proceed to Checkout
+                结算
               </Button>
             </div>
           </SheetFooter>

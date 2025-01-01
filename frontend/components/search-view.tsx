@@ -39,13 +39,13 @@ export function SearchView({ tag }: { tag: string }) {
               console.log(`get seller info of product ${product.id}: `, data)
               sellers_.set(product.id, data)
             }).catch(err => {
-              console.error(err)
+              console.log(err)
             })
         })
 
         setSellers(sellers_)
       }).catch(err => {
-        console.error(err)
+        console.log(err)
       })
   }, [])
   return (

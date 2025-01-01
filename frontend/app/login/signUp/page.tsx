@@ -26,7 +26,7 @@ export default function SignUp() {
                 router.push('/');
             }).catch(err => {
                 alert('sign up failed')
-                console.error(err)
+                console.log(err)
             })
     }
 

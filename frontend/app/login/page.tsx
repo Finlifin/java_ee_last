@@ -24,7 +24,7 @@ export default function Home() {
         router.push('/');
       }).catch(err => {
         alert('login failed')
-        console.error(err)
+        console.log(err)
       })
   }
 

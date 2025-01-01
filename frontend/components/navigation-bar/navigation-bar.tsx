@@ -1,4 +1,3 @@
-import { Suspense } from "react"
 import { ChevronIcon } from "@/components/icons/chevron-icon"
 import dynamic from "next/dynamic"
 
@@ -10,13 +9,13 @@ import { ImageGridItem, NavItem, TextGridItem, TextImageGridItem } from "./types
 import { ImageGridVariant } from "./variants/image-grid"
 import { TextGridVariant } from "./variants/text-grid"
 import { TextImageGridVariant } from "./variants/text-image-grid"
-import { Skeleton } from "@/components/ui/skeleton"
 import { CloseIcon } from "@/components/icons/close-icon"
 import { SearchButton } from "./search-button"
 import { NavigationItem } from "./navigation-item"
 import Link from "next/link"
 
 const ProductAddedAlert = dynamic(() => import("@/app/product/_components/product-added-alert").then((mod) => mod.ProductAddedAlert))
+const UserHome = dynamic(() => import("@/components/navigation-bar/user-home").then((mod) => mod.UserHome))
 
 interface NavigationBarProps {
   items: NavItem[]
@@ -71,9 +70,7 @@ export function NavigationBar({ items }: NavigationBarProps) {
           </Link>
           <div className="menu-actions absolute right-4 flex items-center justify-center gap-2">
             <Favorites className="flex md:hidden" />
-            <Suspense fallback={<Skeleton className="size-8" />}>
-              <Cart className="flex md:hidden" />
-            </Suspense>
+            <Cart className="flex md:hidden" />
             <SearchButton />
           </div>
           <ProductAddedAlert className="md:hidden" />
@@ -99,6 +96,7 @@ export function NavigationBar({ items }: NavigationBarProps) {
                 <div className="flex gap-2">
                   <Favorites className="hidden md:flex" />
                   <Cart className="hidden md:flex" />
+                  <UserHome />
                   <ProductAddedAlert className="hidden md:block" />
                 </div>
               </div>

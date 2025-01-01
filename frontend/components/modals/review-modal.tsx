@@ -52,7 +52,7 @@ export function ReviewModal() {
       setPid(null)
       closeModal("review")
     } catch (err) {
-      console.error(err)
+      console.log(err)
       toast.error("There was an error submitting your review. Please try again.")
     }
   }

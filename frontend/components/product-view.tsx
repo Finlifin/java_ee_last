@@ -12,8 +12,6 @@ export function ProductView({ products, sellers }: { products: Product[], seller
             <ProductCard key={product.id} product={product} seller={sellers.get(product.id) || defaultUserInfo} />
           )
         })}
-        {/* <HitsSection hits={hits} /> */}
-        {/* <PaginationSection queryParams={searchParams} totalPages={totalPages} /> */}
       </div>
     </div>
   </div>

@@ -28,7 +28,7 @@ export type Product = {
 
 export type UserInfo = {
   id: number
-  name: string
+  username: string
   email: string
   avatar: string
   role: 'admin' | 'user'
@@ -36,7 +36,7 @@ export type UserInfo = {
 
 export const defaultUserInfo: UserInfo = {
   id: 1,
-  name: 'fin',
+  username: 'fin',
   email: 'fin@valar.arda',
   avatar: '/hero.png',
   role: 'admin',
@@ -65,7 +65,7 @@ export function newCart(products: Product[], orders: Order[]): Cart {
 export type FlashSale = {
   id: number,
   productId: number,
-  disscription: string,
+  description: string,
   creatorId: number,
   discount: number,
   limitPerUser: number,

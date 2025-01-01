@@ -15,9 +15,7 @@ export function DeleteButton({ id }: DeleteButtonProps) {
 
   const handleClick = () => {
     let session = localStorage.getItem('session');
-    if (!session) {
-      window.location.href = '/login'
-    }
+
 
     startTransition(async () => {
       fetch(`/api/v1/cart/remove?productId=${id}`,
@@ -28,13 +26,11 @@ export function DeleteButton({ id }: DeleteButtonProps) {
             "Authorization": `Bearer ${JSON.parse(session as string).token}`,
           },
         }
-      ).then(res => res.json())
-        .then(data => {
-          console.log(`remove product ${id}: `, data)
-          refresh()
-        }).catch(err => {
-          console.error(err)
-        })
+      ).then(res => {
+        refresh()
+      }).catch(err => {
+        console.log(err)
+      })
     })
   }
 

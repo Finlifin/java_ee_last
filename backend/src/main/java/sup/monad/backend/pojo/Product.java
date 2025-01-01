@@ -29,7 +29,7 @@ public class Product implements Serializable {
     private String name;
     private String description;
     private Long seller;
-    private int price;
+    private Double price;
     private String img;
     // postgresql array
     @Column(name = "tags", columnDefinition = "varchar(32)[]")

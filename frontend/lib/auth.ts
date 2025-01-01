@@ -28,7 +28,7 @@ export default function useAuth() {
                 }
             })
             .catch((err) => {
-                console.error(err);
+                console.log(err);
                 localStorage.removeItem('session');
                 window.location.href = '/login';
             });

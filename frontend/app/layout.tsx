@@ -26,185 +26,182 @@ export const revalidate = 86400
 
 const navigationItems: NavItem[] = [
   {
-    text: "Fashion",
-    href: "/category/fashion",
+    text: "时尚新品",
+    href: "/tag/时尚新品",
     submenu: {
       variant: "text-grid",
       items: [
         {
-          text: "Women",
-          href: "/category/women",
+          text: "女性",
+          href: "/tag/女性",
           items: [
-            { text: "Shirts & Blouses", href: "/category/shirts-and-blouses" },
-            { text: "Blazers & Vests", href: "/category/blazers-and-vests" },
-            { text: "Cardigans & Sweaters", href: "/category/cardigans-and-sweaters" },
-            { text: "Dresses", href: "/category/dresses" },
-            { text: "Skirts", href: "/category/skirts" },
+            { text: "衬衫和衬衣", href: "/tag/衬衫和衬衣" },
+            { text: "西装和背心", href: "/tag/西装和背心" },
+            { text: "开衫和毛衣", href: "/tag/开衫和毛衣" },
+            { text: "连衣裙", href: "/tag/连衣裙" },
+            { text: "裙子", href: "/tag/裙子" },
           ],
         },
         {
-          text: "Men",
-          href: "/category/men",
+          text: "男性",
+          href: "/tag/男性",
           items: [
-            { text: "T-shirts & Tanks", href: "/category/t-shirts-and-tanks" },
-            { text: "Hoodies & Sweatshirts", href: "/category/hoodies-and-sweatshirts" },
-            { text: "Blazers & Suits", href: "/category/blazers-and-suits" },
-            { text: "Shorts", href: "/category/shorts" },
-            { text: "Outerwear", href: "/category/outerwear" },
+            { text: "T恤和背心", href: "/tag/T恤和背心" },
+            { text: "连帽衫和卫衣", href: "/tag/连帽衫和卫衣" },
+            { text: "西装和套装", href: "/tag/西装和套装" },
+            { text: "短裤", href: "/tag/短裤" },
+            { text: "外套", href: "/tag/外套" },
           ],
         },
         {
-          text: "Kids",
-          href: "/category/kids",
+          text: "儿童",
+          href: "/tag/儿童",
           items: [
-            { text: "Clothing", href: "/category/clothing" },
-            { text: "Activewear", href: "/category/activewear" },
-            { text: "Accessories", href: "/category/kids-accessories" },
-            { text: "Footwear", href: "/category/footwear" },
+            { text: "服装", href: "/tag/服装" },
+            { text: "运动服", href: "/tag/运动服" },
+            { text: "配饰", href: "/tag/配饰" },
+            { text: "鞋类", href: "/tag/鞋类" },
           ],
         },
       ],
     },
   },
   {
-    text: "Electronics",
-    href: "/category/electronics",
+    text: "电子产品",
+    href: "/tag/电子产品",
     submenu: {
       variant: "text-grid",
       items: [
         {
-          text: "Audio Devices",
-          href: "/category/audio-devices",
+          text: "音频设备",
+          href: "/tag/音频设备",
           items: [
-            { text: "Headphones", href: "/category/headphones" },
-            { text: "Speakers", href: "/category/speakers" },
+            { text: "耳机", href: "/tag/耳机" },
+            { text: "扬声器", href: "/tag/扬声器" },
           ],
         },
         {
-          text: "Cameras",
-          href: "/category/cameras",
+          text: "相机",
+          href: "/tag/相机",
           items: [
-            { text: "Digital Cameras", href: "/category/digital-cameras" },
-            { text: "Action Cameras", href: "/category/action-cameras" },
+            { text: "数码相机", href: "/tag/数码相机" },
+            { text: "运动相机", href: "/tag/运动相机" },
           ],
         },
         {
-          text: "Smartphones",
-          href: "/category/smartphones",
+          text: "智能手机",
+          href: "/tag/智能手机",
         },
         {
-          text: "Laptops",
-          href: "/category/laptops",
+          text: "笔记本电脑",
+          href: "/tag/笔记本电脑",
         },
         {
-          text: "Screens",
-          href: "/category/screens",
+          text: "显示器",
+          href: "/tag/显示器",
         },
       ],
     },
   },
   {
-    text: "Sports & Outdoors",
-    href: "/category/sports-and-outdoors",
+    text: "运动与户外",
+    href: "/tag/运动与户外",
     submenu: {
       variant: "text-grid",
       items: [
         {
-          href: "/category/exercise-equipment",
-          text: "Exercise Equipment",
+          href: "/tag/健身器材",
+          text: "健身器材",
         },
         {
-          href: "/category/outdoor-gear",
-          text: "Outdoor Gear",
+          href: "/tag/户外装备",
+          text: "户外装备",
         },
         {
-          href: "/category/sportswear",
-          text: "Sportswear",
+          href: "/tag/运动服",
+          text: "运动服",
         },
         {
-          href: "/category/athletic-footwear",
-          text: "Athletic Footwear",
+          href: "/tag/运动鞋",
+          text: "运动鞋",
         },
       ],
     },
   },
   {
-    text: "Beauty",
-    href: "/category/beauty",
+    text: "美容",
+    href: "/tag/美容",
     submenu: {
       variant: "text-grid",
       items: [
         {
-          text: "Skin Care",
-          href: "/category/skin-care",
+          text: "护肤",
+          href: "/tag/护肤",
           items: [
-            { text: "Cleansers", href: "/category/cleansers" },
-            { text: "Moisturizers", href: "/category/moisturizers" },
-            { text: "Treatments & Serums", href: "/category/treatments-and-serums" },
+            { text: "清洁产品", href: "/tag/清洁产品" },
+            { text: "保湿产品", href: "/tag/保湿产品" },
+            { text: "治疗和精华", href: "/tag/治疗和精华" },
           ],
         },
         {
-          text: "Makeup",
-          href: "/category/makeup",
+          text: "化妆",
+          href: "/tag/化妆",
           items: [
-            { text: "Face Makeup", href: "/category/face-makeup" },
-            { text: "Eye Makeup", href: "/category/eye-makeup" },
-            { text: "Lip Makeup", href: "/category/lip-makeup" },
+            { text: "面部化妆", href: "/tag/面部化妆" },
+            { text: "眼部化妆", href: "/tag/眼部化妆" },
+            { text: "唇部化妆", href: "/tag/唇部化妆" },
           ],
         },
         {
-          text: "Haircare",
-          href: "/category/haircare",
+          text: "护发",
+          href: "/tag/护发",
           items: [
-            { text: "Shampoos & Conditioners", href: "/category/shampoos-and-conditioners" },
-            { text: "Styling Products", href: "/category/styling-products" },
+            { text: "洗发水和护发素", href: "/tag/洗发水和护发素" },
+            { text: "造型产品", href: "/tag/造型产品" },
           ],
         },
-
         {
-          text: "Fragrances",
-          href: "/category/fragrances",
+          text: "香水",
+          href: "/tag/香水",
           items: [
-            { text: "Perfumes", href: "/category/perfumes" },
-            { text: "Body Sprays", href: "/category/body-sprays" },
+            { text: "香水", href: "/tag/香水" },
+            { text: "身体喷雾", href: "/tag/身体喷雾" },
           ],
         },
       ],
     },
   },
   {
-    text: "Furniture",
-    href: "/category/furniture",
+    text: "家具",
+    href: "/tag/家具",
     submenu: {
       variant: "text-grid",
       items: [
         {
-          text: "Living Room",
-          href: "/category/living-room-furniture",
+          text: "客厅",
+          href: "/tag/客厅",
           items: [
-            { text: "Sofas & Sectionals", href: "/category/sofas-and-sectionals" },
-            { text: "Coffee Tables", href: "/category/coffee-tables" },
-            { text: "TV Stands", href: "/category/tv-stands" },
+            { text: "沙发和组合沙发", href: "/tag/沙发和组合沙发" },
+            { text: "咖啡桌", href: "/tag/咖啡桌" },
+            { text: "电视柜", href: "/tag/电视柜" },
           ],
         },
-
         {
-          text: "Bedroom",
-          href: "/category/bedroom-furniture",
+          text: "卧室",
+          href: "/tag/卧室",
           items: [
-            { text: "Beds", href: "/category/beds" },
-            { text: "Dressers", href: "/category/dressers" },
-            { text: "Nightstands", href: "/category/nightstands" },
+            { text: "床", href: "/tag/床" },
+            { text: "梳妆台", href: "/tag/梳妆台" },
+            { text: "床头柜", href: "/tag/床头柜" },
           ],
         },
-
         {
-          text: "Office",
-          href: "/category/office-furniture",
+          text: "办公室",
+          href: "/tag/办公室",
           items: [
-            { text: "Desks", href: "/category/desks" },
-            { text: "Office Chairs", href: "/category/office-chairs" },
-            { text: "Storage Solutions", href: "/category/storage-solutions" },
+            { text: "书桌", href: "/tag/书桌" },
+            { text: "办公椅", href: "/tag/办公椅" },
+            { text: "储物解决方案", href: "/tag/储物解决方案" },
           ],
         },
       ],
@@ -215,34 +212,12 @@ const navigationItems: NavItem[] = [
 export const metadata: Metadata = {
   title: "Next.js Enterprise Commerce | Blazity",
   description: "AI-FIRST NEXT.JS STOREFRONT FOR COMPOSABLE COMMERCE",
-  // metadataBase: new URL(env.LIVE_URL!),
-  // openGraph: {
-  //   title: "Next.js Enterprise Commerce | Blazity",
-  //   description: "AI-FIRST NEXT.JS STOREFRONT FOR COMPOSABLE COMMERCE",
-  //   images: ["/opengraph-image.jpg"],
-  // },
-  // twitter: {
-  //   card: "summary_large_image",
-  //   title: "Next.js Enterprise Commerce | Blazity",
-  //   description: "AI-FIRST NEXT.JS STOREFRONT FOR COMPOSABLE COMMERCE",
-  //   creator: "@blazity",
-  //   images: ["/opengraph-image.jpg"],
-  // },
-  // verification: {
-  //   google: "google",
-  //   yandex: "yandex",
-  //   yahoo: "yahoo",
-  // },
-  // generator: "Next.js",
-  // applicationName: "Next.js",
 }
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <body>
-        {/* <Script id="mobileMegaMenuLogic" strategy="lazyOnload">{`${mobileInlineScript}`}</Script> */}
-
         <NavigationBar items={navigationItems} />
 
         {children}
@@ -253,17 +228,6 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <CartView />
 
         <Toaster position="bottom-left" />
-{/* 
-        <DraftToolbar />
-
-        <Suspense>
-          <FlagValues values={"WTF"} />
-        </Suspense>
-
-        <ThirdParties />
-
-        <GithubBadge />
-        <DemoModeAlert /> */}
       </body>
     </html>
   )

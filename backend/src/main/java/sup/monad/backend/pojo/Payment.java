@@ -45,7 +45,7 @@ public class Payment {
     @Column(name = "updated_at")
     private LocalDateTime paymentUpdateTimestamp;
     @Column(name = "payment_amount")
-    private int paymentAmount;
+    private Double paymentAmount;
 
     public Payment() {
         this.paymentStatus = "payed";

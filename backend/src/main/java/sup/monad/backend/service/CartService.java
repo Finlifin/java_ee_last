@@ -42,6 +42,7 @@ public class CartService implements ICartService {
 
     @Override
     public void updateCart(Long userId, Cart cart) {
+        updateTotalAmount(cart);
         redisTemplate.opsForValue().set(CART_KEY_PREFIX + userId, cart);
     }
 
@@ -52,7 +53,7 @@ public class CartService implements ICartService {
 
     @Override
     public void decreaseCart(Long userId, Long productId) {
-        if(productService.findProductById(productId)==null){
+        if (productService.findProductById(productId) == null) {
             throw new CustomException("Product not found", HttpStatus.NOT_FOUND);
         }
         Cart cart = getCartByUserId(userId);
@@ -70,18 +71,18 @@ public class CartService implements ICartService {
 
     @Override
     public void increaseCart(Long userId, Long productId) {
-        if(productService.findProductById(productId)==null){
+        if (productService.findProductById(productId) == null) {
             throw new CustomException("Product not found", HttpStatus.NOT_FOUND);
         }
         Cart cart = getCartByUserId(userId);
         if (cart != null) {
             cart.getOrders().stream().filter(order -> order.getProductId().equals(productId)).forEach(order -> {
                 order.setQuantity(order.getQuantity() + 1);
-                if(order.getQuantity() > productService.findProductById(productId).getStock()){
-                    throw new CustomException("Not enough stock", HttpStatus.BAD_REQUEST);
+                if (order.getQuantity() > productService.findProductById(productId).getStock()) {
+                    throw new CustomException("Not enough stock", HttpStatus.FORBIDDEN);
                 }
             });
-            
+
             updateCart(userId, cart);
         }
     }
@@ -97,7 +98,7 @@ public class CartService implements ICartService {
 
     @Override
     public void addProduct(Long userId, Long productId) {
-        if(productService.findProductById(productId)==null){
+        if (productService.findProductById(productId) == null) {
             throw new CustomException("Product not found", HttpStatus.NOT_FOUND);
         }
         Cart cart = getCartByUserId(userId);
@@ -134,11 +135,14 @@ public class CartService implements ICartService {
         if (cart != null) {
             cart.getOrders().stream().filter(order -> order.getProductId().equals(productId)).forEach(order -> {
                 order.setQuantity(quantity);
-                if(order.getQuantity() > productService.findProductById(productId).getStock()){
-                    throw new CustomException("Not enough stock", HttpStatus.BAD_REQUEST);
-                }
             });
             updateCart(userId, cart);
         }
+    }
+
+    private void updateTotalAmount(Cart cart) {
+        cart.getOrders().forEach(x -> {
+            x.setTotalAmount(productService.findProductById(x.getProductId()).getPrice() * x.getQuantity());
+        });
     }
 }
