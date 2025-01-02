@@ -149,7 +149,7 @@ class FlashSaleServiceTest {
         flashSale.setTotalQuantity(10);
 
         Product product = new Product();
-        product.setPrice(1000);
+        product.setPrice(1000.0);
         List<String> tags = new ArrayList<>();
         tags.add("tag1");
         product.setTags(tags);

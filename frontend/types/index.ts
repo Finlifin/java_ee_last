@@ -76,3 +76,15 @@ export type FlashSale = {
   updateDateTime: string,
   state: 'created' | 'active' | 'cancelled' | 'ended',
 }
+
+export type FlashSaleApplication = {
+  id: number,
+  productId: number,
+  discount: number,
+  totalQuantity: number,
+  startTime: string,
+  endTime: string,
+  creationDateTime: string,
+  updateDateTime: string,
+  status: 'pending' | 'approved' | 'rejected',
+}

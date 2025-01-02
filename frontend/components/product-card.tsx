@@ -10,7 +10,7 @@ export const ProductCard = ({ product: { img, name, description, id, price }, se
       <div className="relative aspect-square overflow-hidden m-auto">
         <Image
           className="object-cover transition-transform group-hover:scale-105"
-          src={img || "/default-product-image.svg"}
+          src={'/' + img || "/hero.png"}
           alt={name}
           fill
         />

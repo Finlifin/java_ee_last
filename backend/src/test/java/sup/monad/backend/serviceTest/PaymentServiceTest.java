@@ -49,7 +49,7 @@ class PaymentServiceTest {
         payment1.setOrderId(101L);
         payment1.setPaymentMethod("Credit Card");
         payment1.setPaymentStatus("paid");
-        payment1.setPaymentAmount(100);
+        payment1.setPaymentAmount(100.0);
         PAYMENT_LIST.add(payment1);
 
         Payment payment2 = new Payment();
@@ -59,7 +59,7 @@ class PaymentServiceTest {
         payment2.setOrderId(102L);
         payment2.setPaymentMethod("PayPal");
         payment2.setPaymentStatus("pending");
-        payment2.setPaymentAmount(200);
+        payment2.setPaymentAmount(200.0);
         PAYMENT_LIST.add(payment2);
     }
 
@@ -69,7 +69,7 @@ class PaymentServiceTest {
     static {
         PRODUCT.setId(1L);
         PRODUCT.setSeller(2L);
-        PRODUCT.setPrice(100);
+        PRODUCT.setPrice(100.0);
     }
 
     // 模拟静态的订单数据

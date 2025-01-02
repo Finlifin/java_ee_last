@@ -1,6 +1,8 @@
 import { useEffect } from "react";
+import { useUserInfoStore } from "@/stores/user-info-store";
 
 export default function useAuth() {
+    const { setUserInfo } = useUserInfoStore();
 
     useEffect(() => {
         const sessionJson = localStorage.getItem('session');
@@ -22,6 +24,7 @@ export default function useAuth() {
             .then((res) => res.json())
             .then((data) => {
                 console.log('auth:', data);
+                setUserInfo(data.userInfo);
                 if (!data) {
                     localStorage.removeItem('session');
                     window.location.href = '/login';
