@@ -17,7 +17,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "products")
+@Table(name = "products") //数据库表名
 @JsonSerialize
 @JsonDeserialize
 @Getter
